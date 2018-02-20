@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+
+<hr>
+<%= form_with(model: [@post, @comment], local: true) do |form| %>
+  <%= form.label :content %>
+  <%= form.text_area :content %> <br>
+  <%= form.submit 'Comentar' %>
+<% end %>
+
+<hr>
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      <%= comment.content %>
+      <%= link_to 'Delete', post_comment_path(@post.id, comment.id), method: :delete, class: 'btn btn-danger' %>
+        <%= link_to 'Editar', edit_post_comment_path(@post.id, comment.id), class: 'btn btn-success' %>
+    </li>
+  <% end %>
+</ul>
